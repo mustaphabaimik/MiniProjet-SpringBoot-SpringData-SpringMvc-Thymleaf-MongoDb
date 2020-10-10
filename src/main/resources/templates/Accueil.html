@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+
+<link th:href="@{/css/base.css}" rel="stylesheet" />
+<link th:href="@{/css/vendor.css}" rel="stylesheet" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+
+<script type="text/javascript" th:src="@{/js/modernizr.js}"></script>
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+  <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div id="top" class="s-wrap site-wrapper">
+
+        <!-- site header
+        ================================================== -->
+        <header class="s-header">
+
+            <div class="header__top">
+                <div class="header__logo">
+                    <a class="site-logo" th:href="@{/}">
+                       <h1>BDO</h1>
+                    </a>
+                </div>
+
+             
+
+                <!-- toggles -->
+               
+                <a href="#0" class="header__menu-toggle"><span>Menu</span></a>
+
+            </div> <!-- end header__top -->
+
+            <nav class="header__nav-wrap">
+
+                <ul class="header__nav">
+                    <li class="current"><a th:href="@{/}" title="">Accueil</a></li>
+                    <li class="has-children">
+                        <a href="#0" title="">Categories</a>
+                        <ul class="sub-menu">
+                        <li><a th:each="cat: ${Categories}" th:text="${cat}" th:href="@{/publications/searchBycat/{searchTerm}(searchTerm=${cat})}" ></a></li>   
+                        </ul>
+                    </li>
+                    <li class="has-children">
+                        <a href="#0" title="">Discipline</a>
+                        <ul class="sub-menu">
+                        <li><a  th:each="dis: ${disciplines}" th:text="${dis}" th:href="@{/publications/searchBydis/{searchTerm}(searchTerm=${dis})}"></a></li>
+                       
+                        </ul>
+                    </li>
+                     <li class="has-children">
+                        <a href="#0" title="">Organisme</a>
+                        <ul class="sub-menu">
+                        <li><a  th:each="org: ${organismes}" th:text="${org}" th:href="@{/publications/searchByorg/{searchTerm}(searchTerm=${org})}"></a></li>
+                       
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/auteurs}">Auteurs</a></li>
+                   
+                </ul> <!-- end header__nav -->
+
+               
+
+            </nav> <!-- end header__nav-wrap -->
+
+            
+
+        </header> <!-- end s-header -->
+
+        <div class="s-content" style="padding-right: 20px;">
+           <div class="row" style="width:100%;">
+
+                        <div class="column large-8 tab-full">
+
+                           <form action="#" th:action="@{/publications/rechmulticritere}" method="Post">
+                                <div class="searchterm">
+                                    <label for="sampleInput">Titre</label>
+                                    <input class="full-width" type="text" placeholder="Titre" id="sampleInput" name="titre" required>
+                                </div>
+                               
+                               
+                                <div class="searchterm">
+                                    <label for="sampleRecipientInput">Categorie</label>
+                                    <div class="ss-custom-select">
+                                        <select class="full-width" id="sampleRecipientInput" name="categorie" required>
+                                            <option th:each="cat: ${Categories}" th:text="${cat}" th:value="${cat}"></option>                
+                                        </select>
+                                    </div>
+                                </div>
+                               
+                               <div class="searchterm">
+                                    <label for="sampleRecipientInput">discipline</label>
+                                    <div class="ss-custom-select">
+                                        <select class="full-width" id="sampleRecipientInput"  name="discipline" required>
+                                            <option th:each="dis: ${disciplines}" th:text="${dis}" th:value="${dis}"></option>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <input class="btn--primary full-width" type="submit" value="Recherche">
+                            </form>
+
+                           
+
+                        </div>
+
+                        <div class="column large-4 tab-full">
+
+                           <form action="#" th:action="@{/publications/rechpartitre}" method="Post">
+                                <div>
+                                    <label for="sampleInput">Titre</label>
+                                    <input class="column full-width tab-full" type="text" placeholder="Titre" id="sampleInput" name="titre" required>
+                                </div>  
+                                <input class="btn--primary full-width" type="submit" value="Recherche">
+                            </form>
+
+                        </div>
+
+                    </div> <!-- end row -->
+                    
+            
+            <div class="masonry-wrap">
+            
+                <div class="masonry">
+   
+                    <div class="grid-sizer"></div>
+    
+                    <article th:each="publication: ${Publications}" class="masonry__brick entry format-standard animate-this">
+
+                        <div class="entry__text">
+                            <div class="entry__header">
+    
+                                <h2 class="entry__title"><a href="single-standard.html" th:text="${publication.Titre}"></a></h2>
+                                <div class="entry__meta">
+                                    <span class="entry__meta-cat">
+                                        <a href="category.html" th:text="${publication.categorie}"></a> 
+                                        
+                                    </span>
+                                    <span class="entry__meta-date">
+                                        <a href="single-standard.html" th:text="${publication.DatePub}"></a>
+                                    </span>
+                                </div>
+                                
+                            </div>
+                            <div class="entry__excerpt">
+                                <p th:text="${publication.resume}">
+                                
+                                </p>
+                            </div>
+                            <div class="entry__meta">
+                                    <span class="entry__meta-cat">
+                                        <a href="category.html" th:each="auteur: ${publication.auteurs}" th:text="${auteur.Nom}"></a> 
+                                        
+                                    </span>
+                            </div>
+                           
+                             <p class="entry__tags">
+                            <span>Mot clés</span>
+        
+                            <span class="entry__tag-list">
+                                <a th:each="mot: ${publication.motcles}" th:text="${mot}"></a>
+                               
+                            </span>
+                            
+                            
+             
+                            </p>
+                            
+                            <td><a th:href="@{/publications/detailpub/{id}(id=${publication.id})}"
+							class="btn btn-primary a-btn-slide-text"> <span
+							class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+							<span><strong>details</strong></span>
+							</a></td>
+                        </div>
+        
+                    </article> <!-- end article -->
+                    
+                </div> <!-- end masonry -->
+
+            </div> <!-- end masonry-wrap -->
+
+           
+
+        </div> <!-- end s-content -->
+
+
+        <!-- footer
+        ================================================== -->
+        <footer class="s-footer">
+            <div class="row">
+                <div class="column large-full footer__content">
+                    <div class="footer__copyright">
+                        <span>© Copyright BDO 2020</span> 
+                        <span>Realisé par <a href="https://www.styleshout.com/">Mustapha Baimik,Oumeima El Yazaji , Anouar El Bardaoui</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="go-top">
+                <a class="smoothscroll" title="Back to Top" href="#top">top</a>
+            </div>
+        </footer>
+
+    </div> <!-- end s-wrap -->
+
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>

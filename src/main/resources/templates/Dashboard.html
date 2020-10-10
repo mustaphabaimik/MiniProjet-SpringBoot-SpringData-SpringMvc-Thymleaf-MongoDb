@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link th:href="@{/css/base.css}" rel="stylesheet" />
+<link th:href="@{/css/vendor.css}" rel="stylesheet" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+
+<script type="text/javascript" th:src="@{/js/modernizr.js}"></script>
+<title>dashboard</title>
+</head>
+<body>
+
+
+
+<div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div id="top" class="s-wrap site-wrapper">
+
+        <!-- site header
+        ================================================== -->
+        <header class="s-header">
+
+            <div class="header__top">
+                <div class="header__logo">
+                    <a class="site-logo" th:href="@{/}">
+                       <h1>BDO</h1>
+                    </a>
+                </div>
+
+             
+
+                <!-- toggles -->
+               
+                <a href="#0" class="header__menu-toggle"><span>Menu</span></a>
+
+            </div> <!-- end header__top -->
+
+            <nav class="header__nav-wrap">
+
+                <ul class="header__nav">
+                   
+                    
+                    <li><a th:href="@{/admin}">Publications</a></li>
+                    <li><a th:href="@{/admin/addpubform}">Ajouter publication</a></li>
+                    <li><a th:href="@{/admin/auteurs}">Auteurs</a></li>
+                    
+                    <li><a th:href="@{/admin/addauteurform}">Ajouter auteur</a></li>
+                   
+                   
+                </ul> <!-- end header__nav -->
+
+                <ul class="header__social">
+                    <li class="ss-facebook">
+                        <a href="https://facebook.com/">
+                            <span class="screen-reader-text">Facebook</span>
+                        </a>
+                    </li>
+                    <li class="ss-twitter">
+                        <a href="#0">
+                            <span class="screen-reader-text">Twitter</span>
+                        </a>
+                    </li>
+                    <li class="ss-dribbble">
+                        <a href="#0">
+                            <span class="screen-reader-text">Dribbble</span>
+                        </a>
+                    </li>
+                    <li class="ss-pinterest">
+                        <a href="#0">
+                            <span class="screen-reader-text">Behance</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </nav> <!-- end header__nav-wrap -->
+
+            
+
+        </header> <!-- end s-header -->
+
+        <div class="s-content">
+        
+            
+            <div class="masonry-wrap">
+            
+<table class="table table-dark" style="font-size:15px;">
+  <thead>
+    <tr>
+    <th>Titre</th>
+	<th>Datepub</th>
+	<th>categorie</th>
+	<th>discipline</th>
+	<th>Action</th>
+	
+    </tr>
+  </thead>
+  <tbody>
+   <tr th:each="publication: ${Publications}">
+		<td th:text="${publication.Titre}"></td>
+		<td th:text="${publication.DatePub}"></td>
+		<td th:text="${publication.categorie}"></td>
+		<td th:text="${publication.discipline}"></td>
+		
+		<td><a th:href="@{/admin/editpub/{id}(id=${publication.id})}"
+		class="btn btn-primary a-btn-slide-text"> <span
+		class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+		<span><strong>Edit</strong></span>
+		</a></td>
+		
+		<td><a th:href="@{/admin/deletepub/{id}(id=${publication.id})}"
+		class="btn btn-primary a-btn-slide-text"> <span
+		class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		<span><strong>Supprimer</strong></span>
+		</a></td>
+		
+		
+		
+		<td><a th:href="@{/admin/addmotcletopub/{id}(id=${publication.id})}"
+		class="btn btn-primary a-btn-slide-text"> <span
+		class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		<span><strong>ajouter mot cle</strong></span>
+		</a></td>
+		
+		
+	</tr>
+  </tbody>
+</table>
+
+                <div class="masonry">
+    
+                    <div class="grid-sizer"></div>
+                </div> <!-- end masonry -->
+
+            </div> <!-- end masonry-wrap -->
+
+           
+
+        </div> <!-- end s-content -->
+
+
+        <!-- footer
+        ================================================== -->
+        <footer class="s-footer">
+            <div class="row">
+                <div class="column large-full footer__content">
+                    <div class="footer__copyright">
+                        <span>© Copyright BDO 2020</span> 
+                        <span>Realisé par <a href="https://www.styleshout.com/">Mustapha Baimik,Oumeima El Yazaji , Anouar El Bardaoui</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="go-top">
+                <a class="smoothscroll" title="Back to Top" href="#top"></a>
+            </div>
+        </footer>
+
+    </div> <!-- end s-wrap -->
+
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>
